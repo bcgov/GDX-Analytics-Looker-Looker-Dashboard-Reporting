@@ -201,4 +201,9 @@ view: history {
     type: count
     drill_fields: [id, connection_name, dashboard.id]
   }
+
+  measure: dashboard_run_count {
+    sql: ${dashboard_session} ;;
+  }
+
 }

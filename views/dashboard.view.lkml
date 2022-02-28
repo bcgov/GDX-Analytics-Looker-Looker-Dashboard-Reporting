@@ -110,6 +110,13 @@ view: dashboard {
     sql: ${TABLE}.load_configuration ;;
   }
 
+  dimension: link {
+    link: {
+      label: "Link to Dashboard {{ id }}"
+      url: "https://analytics.gov.bc.ca/dashboards-next/{{ id }}"
+    }
+  }
+
   dimension: lookml_link_id {
     type: string
     sql: ${TABLE}.lookml_link_id ;;
