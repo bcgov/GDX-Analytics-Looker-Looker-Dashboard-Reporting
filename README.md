@@ -1,7 +1,7 @@
 # GDX-Analytics-Looker-SBC-Dashboard-Reporting
 [![img](https://img.shields.io/badge/Lifecycle-Maturing-007EC6)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
 ---
-This LoookoML block is used to report on ServiceBC analytics dashboard usage.
+This LookML block is used to report on ServiceBC analytics dashboard usage.
  
 ## Features
  
