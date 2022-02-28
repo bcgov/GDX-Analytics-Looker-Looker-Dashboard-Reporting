@@ -110,7 +110,7 @@ view: dashboard {
     sql: ${TABLE}.load_configuration ;;
   }
 
-  dimension: link {
+  dimension: dashboard_link {
     link: {
       label: "Link to Dashboard {{ id }}"
       url: "https://analytics.gov.bc.ca/dashboards-next/{{ id }}"
