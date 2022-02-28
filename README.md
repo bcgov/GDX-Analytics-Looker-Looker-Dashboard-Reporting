@@ -5,7 +5,7 @@ This LookML block is used to report on ServiceBC analytics dashboard usage.
  
 ## Features
  
-This GDX Analytics project provides views into the Service BC dashboard analytics data.
+This GDX Analytics project provides views into the ServiceBC dashboard analytics data.
  
 ## Requirements
  
