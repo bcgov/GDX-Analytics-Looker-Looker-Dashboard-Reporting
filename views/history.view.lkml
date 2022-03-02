@@ -1,6 +1,5 @@
 view: history {
   sql_table_name: servicebc.history ;;
-  drill_fields: [id]
 
   dimension: id {
     primary_key: yes
@@ -203,7 +202,20 @@ view: history {
   }
 
   measure: dashboard_run_count {
+    type:  count_distinct
     sql: ${dashboard_session} ;;
+    drill_fields: [dashboard_user.first_name, dashboard_user.last_name, dashboard.title, dashboard_run_count]
   }
+
+  measure: approximate_usage_in_minutes {
+    type: number
+    sql:  COUNT(
+            DISTINCT
+              CASE
+                WHEN ${TABLE}.source NOT IN ('alerts', 'scheduled_task')
+                THEN CONCAT(CAST(${TABLE}.user_id as CHAR(30)), FLOOR(extract('epoch' from ${TABLE}.created_at)/(60*5)))
+                ELSE NULL END )*5 ;;
+    }
+    drill_fields: [dashboard_user.first_name, dashboard_user.last_name, dashboard.title, approximate_usage_in_minutes]
 
 }

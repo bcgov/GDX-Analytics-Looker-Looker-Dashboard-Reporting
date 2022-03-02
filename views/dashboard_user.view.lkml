@@ -207,6 +207,6 @@ view: dashboard_user {
 
   measure: count {
     type: count
-    drill_fields: [id, dev_branch_name, last_name, first_name]
+    drill_fields: [id, last_name, first_name]
   }
 }
