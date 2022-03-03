@@ -111,9 +111,10 @@ view: dashboard {
   }
 
   dimension: dashboard_link {
+    sql: ${TABLE}.id ;;
     link: {
-      label: "Link to Dashboard {{ id }}"
-      url: "https://analytics.gov.bc.ca/dashboards-next/{{ id }}"
+      label: "Link to Dashboard {{ value }}"
+      url: "https://analytics.gov.bc.ca/dashboards-next/{{ value }}"
     }
   }
 
@@ -185,6 +186,10 @@ view: dashboard {
   dimension: title {
     type: string
     sql: ${TABLE}.title ;;
+    link: {
+      label: "Link to Dashboard {{ dashboard.dashboard_link._value }}"
+      url: "{{ dashboard.dashboard_link._value }}"
+    }
   }
 
   dimension: title_color {
