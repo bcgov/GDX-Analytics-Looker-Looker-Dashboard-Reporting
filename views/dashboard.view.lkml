@@ -1,5 +1,5 @@
 view: dashboard {
-  sql_table_name: servicebc.dashboard ;;
+  sql_table_name: microservice.dashboard ;;
   drill_fields: [id]
 
   dimension: id {

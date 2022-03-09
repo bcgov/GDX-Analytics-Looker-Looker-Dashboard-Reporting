@@ -2,7 +2,7 @@
 include: "//snowplow_web_block/Includes/date_comparisons_common.view"
 
 view: history {
-  sql_table_name: servicebc.history ;;
+  sql_table_name: microservice.history ;;
 
   extends: [date_comparisons_common]
 
