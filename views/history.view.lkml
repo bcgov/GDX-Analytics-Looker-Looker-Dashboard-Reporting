@@ -217,6 +217,9 @@ view: history {
     drill_fields: [dashboard_user.first_name, dashboard_user.last_name, dashboard.title, dashboard_run_count]
   }
 
+  # This field takes the employee id and concats it to the timestamp of completed queries.
+  # It then runs a distinct count against that, and multiplies the result by 5 to estimate
+  # the minutes per user. This assumes that a user spends approximately 5 minutes per query.
   measure: approximate_usage_in_minutes {
     type: number
     sql:  COUNT(
@@ -224,7 +227,7 @@ view: history {
               CASE
                 WHEN ${TABLE}.source NOT IN ('alerts', 'scheduled_task')
                 THEN CONCAT(
-                        CAST(${TABLE}.user_id AS CHAR(30)),
+                        ${TABLE}.user_id,
                         FLOOR(extract('epoch' from ${TABLE}.created_at)/(60*5)))
                 ELSE NULL END ) * 5 ;;
     }
