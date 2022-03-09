@@ -1,5 +1,15 @@
+# Import metadata view from cmslite_metadata project
+include: "//snowplow_web_block/Includes/date_comparisons_common.view"
+
 view: history {
   sql_table_name: servicebc.history ;;
+
+  extends: [date_comparisons_common]
+
+  # Needed for date_comparisons_common
+  dimension_group: filter_start {
+    sql: ${TABLE}.completed_at ;;
+  }
 
   dimension: id {
     primary_key: yes
@@ -213,8 +223,10 @@ view: history {
             DISTINCT
               CASE
                 WHEN ${TABLE}.source NOT IN ('alerts', 'scheduled_task')
-                THEN CONCAT(CAST(${TABLE}.user_id AS CHAR(30)), FLOOR(extract('epoch' from ${TABLE}.created_at)/(60*5)))
-                ELSE NULL END )*5 ;;
+                THEN CONCAT(
+                        CAST(${TABLE}.user_id AS CHAR(30)),
+                        FLOOR(extract('epoch' from ${TABLE}.created_at)/(60*5)))
+                ELSE NULL END ) * 5 ;;
     }
     drill_fields: [dashboard_user.first_name, dashboard_user.last_name, dashboard.title, approximate_usage_in_minutes]
 
