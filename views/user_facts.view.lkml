@@ -1,5 +1,5 @@
 view: user_facts {
-  sql_table_name: servicebc.user_facts ;;
+  sql_table_name: microservice.user_facts ;;
   drill_fields: [id]
 
   dimension: id {

@@ -1,5 +1,15 @@
+# Import metadata view from cmslite_metadata project
+include: "//snowplow_web_block/Includes/date_comparisons_common.view"
+
 view: history {
-  sql_table_name: servicebc.history ;;
+  sql_table_name: microservice.history ;;
+
+  extends: [date_comparisons_common]
+
+  # Needed for date_comparisons_common
+  dimension_group: filter_start {
+    sql: ${TABLE}.completed_at ;;
+  }
 
   dimension: id {
     primary_key: yes
@@ -207,14 +217,19 @@ view: history {
     drill_fields: [dashboard_user.first_name, dashboard_user.last_name, dashboard.title, dashboard_run_count]
   }
 
+  # This field takes the employee id and concats it to the timestamp of completed queries.
+  # It then runs a distinct count against that, and multiplies the result by 5 to estimate
+  # the minutes per user. This assumes that a user spends approximately 5 minutes per query.
   measure: approximate_usage_in_minutes {
     type: number
     sql:  COUNT(
             DISTINCT
               CASE
                 WHEN ${TABLE}.source NOT IN ('alerts', 'scheduled_task')
-                THEN CONCAT(CAST(${TABLE}.user_id AS CHAR(30)), FLOOR(extract('epoch' from ${TABLE}.created_at)/(60*5)))
-                ELSE NULL END )*5 ;;
+                THEN CONCAT(
+                        ${TABLE}.user_id,
+                        FLOOR(extract('epoch' from ${TABLE}.created_at)/(60*5)))
+                ELSE NULL END ) * 5 ;;
     }
     drill_fields: [dashboard_user.first_name, dashboard_user.last_name, dashboard.title, approximate_usage_in_minutes]
 
