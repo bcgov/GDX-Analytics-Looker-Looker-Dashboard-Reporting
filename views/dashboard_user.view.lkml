@@ -1,4 +1,4 @@
-view: dashboard_user {
+view: dashboard_user  {
   sql_table_name: microservice.dashboard_user ;;
   drill_fields: [id]
 
