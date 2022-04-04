@@ -10,6 +10,7 @@ datagroup: looker_dashboard_reporting_default_datagroup {
 
 persist_with: looker_dashboard_reporting_default_datagroup
 
+
 explore: history {
   join: dashboard {
     type: left_outer
