@@ -1,5 +1,5 @@
 view: dashboard {
-  sql_table_name: microservice.dashboard ;;
+  sql_table_name: microservice.looker_dashboard ;;
   drill_fields: [id]
 
   dimension: id {
